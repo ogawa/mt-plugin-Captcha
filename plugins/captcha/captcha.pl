@@ -11,6 +11,8 @@ package MT::Plugin::Captcha;
 use strict;
 use MT;
 use MT::Template::Context;
+use File::Spec;
+use File::Basename;
 use Authen::Captcha;
 use base 'MT::Plugin';
 our $VERSION = '0.01';
@@ -25,8 +27,12 @@ my $plugin = __PACKAGE__->new({
 });
 MT->add_plugin($plugin);
 
-my $captcha = Authen::Captcha->new(data_folder => './data',
-				   output_folder => './images');
+my $dirname = dirname(__FILE__);
+my $captcha = Authen::Captcha->new(
+   data_folder => File::Spec->catdir($dirname, 'data'),
+   output_folder => File::Spec->catdir($dirname, 'images')
+);
+
 MT->add_callback('CommentThrottleFilter', 5, $plugin, \&captcha_test);
 MT::Template::Context->add_tag(CaptchaJsURL => \&captcha_js_url);
 
@@ -49,7 +55,7 @@ sub captcha_js_url {
     my ($ctx, $args) = @_;
     my $path = MT::ConfigMgr->instance->CGIPath;
     $path .= '/' unless $path =~ m!/$!;
-    $path . 'plugins/captcha/captcha_js.cgi'; # ad hoc
+    $path . 'plugins/captcha/captcha_js.cgi';
 }
 
 1;
