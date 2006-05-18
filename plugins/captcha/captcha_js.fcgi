@@ -6,7 +6,8 @@ use Authen::Captcha;
 use CGI::Fast;
 
 my $captcha = Authen::Captcha->new(data_folder => './data',
-				   output_folder => './images');
+				   output_folder => './images',
+				   expire => 3600);
 my $captcha_length = 5;
 my $captcha_img_width = 25 * $captcha_length;
 my $captcha_img_height = 35;
