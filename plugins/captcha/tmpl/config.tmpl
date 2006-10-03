@@ -1,0 +1,36 @@
+<div class="setting">
+  <div class="label"><label for="captcha_enable"><MT_TRANS phrase="Enable Captcha:"></label></div>
+  <div class="field">
+    <input type="checkbox" name="captcha_enable" id ="captcha_enable" value="1" <TMPL_IF NAME=CAPTCHA_ENABLE>checked="checked"</TMPL_IF> />
+  </div>
+</div>
+<div class="setting">
+  <div class="label"><label for="captcha_ttl"><MT_TRANS phrase="TTL:"></label></div>
+  <div class="field">
+    <input name="captcha_ttl" id ="captcha_ttl" size="5" value="<TMPL_VAR NAME=CAPTCHA_TTL ESCAPE=HTML>" /> <MT_TRANS phrase="seconds"> (max: 3600 seconds)
+  </div>
+</div>
+<div class="setting">
+  <div class="label"><label for="captcha_length"><MT_TRANS phrase="Length:"></label></div>
+  <div class="field">
+    <input name="captcha_length" id ="captcha_length" size="5" value="<TMPL_VAR NAME=CAPTCHA_LENGTH ESCAPE=HTML>" />
+  </div>
+</div>
+<div class="setting">
+  <div class="label"><label for="captcha_secret"><MT_TRANS phrase="Secret string:"></label></div>
+  <div class="field">
+    <input name="captcha_secret" id ="captcha_secret" size="10" value="<TMPL_VAR NAME=CAPTCHA_SECRET ESCAPE=HTML>" />
+  </div>
+</div>
+<div class="setting">
+  <div class="label"><label for="captcha_images_url"><MT_TRANS phrase="Images URL:"></label></div>
+  <div class="field">
+    <input name="captcha_images_url" id ="captcha_images_url" size="40" value="<TMPL_VAR NAME=CAPTCHA_IMAGES_URL ESCAPE=HTML>" />
+  </div>
+</div>
+<div class="setting">
+  <div class="label"><label for="captcha_images_path"><MT_TRANS phrase="Images Path:"></label></div>
+  <div class="field">
+    <input name="captcha_images_path" id ="captcha_images_path" size="40" value="<TMPL_VAR NAME=CAPTCHA_IMAGES_PATH ESCAPE=HTML>" />
+  </div>
+</div>
