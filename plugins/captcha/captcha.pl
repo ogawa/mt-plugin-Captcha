@@ -62,7 +62,7 @@ sub captcha_test {
     my $md5 = $q->param('captcha_md5') or return 0;
 
     # load config
-    my $cfg = config('blog:' . $blog->id);
+    my $cfg = $plugin->get_config_hash('blog:' . $blog->id);
 
     # check if captcha-test disabled
     return 1 unless $cfg->{captcha_enable};
@@ -89,24 +89,24 @@ sub captcha_js_url {
 sub dump_settings {
     my $plugin = shift;
 
-    my $conf = '';
+    my $res = '';
     my @blogs = MT::Blog->load;
     for my $blog (@blogs) {
-	my $config = $plugin->get_config_hash('blog:' . $blog->id);
-	next unless $config->{captcha_enable};
-	$conf .= $blog->id . ',' .
-	    $config->{captcha_ttl} . ',' .
-	    $config->{captcha_secret} . ',' .
-	    $config->{captcha_length} . ',' .
-	    $config->{captcha_images_url} . ',' .
-	    $config->{captcha_images_path} . "\n";
+	my $cfg = $plugin->get_config_hash('blog:' . $blog->id);
+	next unless $cfg->{captcha_enable};
+	$res .= $blog->id . ',' .
+	    $cfg->{captcha_ttl} . ',' .
+	    $cfg->{captcha_secret} . ',' .
+	    $cfg->{captcha_length} . ',' .
+	    $cfg->{captcha_images_url} . ',' .
+	    $cfg->{captcha_images_path} . "\n";
     }
 
     my $cfg_file = File::Spec->catfile(dirname(__FILE__), 'data', 'config.txt');
     local(*FH);
     open FH, ">$cfg_file" or die "Can't open File: $cfg_file\n";
     flock FH, 2;
-    print FH $conf;
+    print FH $res;
     close(FH);
 }
 
@@ -122,19 +122,6 @@ sub reset_config {
     $plugin->SUPER::reset_config(@_);
     delete $plugin->{__config_obj}{$_[0]}; # invalidate cache
     $plugin->dump_settings();
-}
-
-use MT::Request;
-sub config {
-    return {} unless $plugin;
-    my $scope = shift || 'system';
-    my $r = MT::Request->instance;
-    my $cfg = $r->cache('captcha_config_' . $scope);
-    if (!$cfg) {
-	$cfg = $plugin->get_config_hash($scope);
-	$r->cache('captcha_config_' . $scope, $cfg);
-    }
-    $cfg;
 }
 
 1;
