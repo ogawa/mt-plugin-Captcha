@@ -13,9 +13,10 @@ use MT;
 use MT::Template::Context;
 use File::Spec;
 use File::Basename;
+use Data::Dumper;
 use Authen::Captcha;
 use base 'MT::Plugin';
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
 my $dirname = dirname(__FILE__);
 my $cgipath = MT::ConfigMgr->instance->CGIPath;
@@ -89,24 +90,16 @@ sub captcha_js_url {
 sub dump_settings {
     my $plugin = shift;
 
-    my $res = '';
-    my @blogs = MT::Blog->load;
-    for my $blog (@blogs) {
-	my $cfg = $plugin->get_config_hash('blog:' . $blog->id);
-	next unless $cfg->{captcha_enable};
-	$res .= $blog->id . ',' .
-	    $cfg->{captcha_ttl} . ',' .
-	    $cfg->{captcha_secret} . ',' .
-	    $cfg->{captcha_length} . ',' .
-	    $cfg->{captcha_images_url} . ',' .
-	    $cfg->{captcha_images_path} . "\n";
+    my $config;
+    for my $blog (MT::Blog->load) {
+	$config->{$blog->id} = $plugin->get_config_hash('blog:' . $blog->id);
     }
 
-    my $cfg_file = File::Spec->catfile(dirname(__FILE__), 'data', 'config.txt');
+    my $config_file = File::Spec->catfile(dirname(__FILE__), 'data', 'config.txt');
     local(*FH);
-    open FH, ">$cfg_file" or die "Can't open File: $cfg_file\n";
+    open FH, ">$config_file" or die "Can't open File: $config_file\n";
     flock FH, 2;
-    print FH $res;
+    print FH Data::Dumper->Dump([$config], ['config']);
     close(FH);
 }
 
