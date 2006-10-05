@@ -49,7 +49,8 @@ sub generate_code {
 	unless $cfg->{captcha_enable};
 
     $captcha->expire($cfg->{captcha_ttl} || 3600);
-    $captcha->secret($cfg->{captcha_secret} || '');
+    $captcha->secret($cfg->{captcha_secret} || '')
+	if $captcha->can('secret');
     $captcha->output_folder($cfg->{captcha_images_path});
     my $captcha_length = $cfg->{captcha_length} || 5;
     my $captcha_md5 = $captcha->generate_code($captcha_length);

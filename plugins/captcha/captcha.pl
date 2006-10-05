@@ -70,7 +70,8 @@ sub captcha_test {
 
     # configure Auth::Captcha
     $captcha->output_folder($cfg->{captcha_images_path});
-    $captcha->secret($cfg->{captcha_secret} || '');
+    $captcha->secret($cfg->{captcha_secret} || '')
+	if $captcha->can('secret');
 
     my $ttl = $cfg->{captcha_ttl};
     $ttl = 3600 if $ttl !~ /^\d+$/;
