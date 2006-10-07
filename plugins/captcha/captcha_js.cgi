@@ -48,25 +48,23 @@ sub generate_code {
     $captcha->secret($cfg->{captcha_secret} || '')
 	if $captcha->can('secret');
     $captcha->output_folder($cfg->{captcha_images_path});
-    my $captcha_length = $cfg->{captcha_length} || 5;
-    my $captcha_md5 = $captcha->generate_code($captcha_length);
-    my $captcha_img = $cfg->{captcha_images_url};
-    $captcha_img .= '/' if $captcha_img !~ m!/$!;
-    $captcha_img .= $captcha_md5 . '.png';
-    my $captcha_img_width = 25 * $captcha_length;
-    my $captcha_img_height = 35;
+
+    my %captcha;
+    $captcha{length} = $cfg->{captcha_length} || 5;
+    $captcha{md5} = $captcha->generate_code($captcha{length});
+    $captcha{img} = $cfg->{captcha_images_url};
+    $captcha{img} .= '/' if $captcha{img} !~ m!/$!;
+    $captcha{img} .= $captcha{md5}. '.png';
+    $captcha{img_width} = 25 * $captcha{length};
+    $captcha{img_height} = 35;
+
+    my $tmpl =  $cfg->{captcha_tmpl};
+    $tmpl =~ s/\[captcha_([^]]+)\]/$captcha{$1}/g;
 
     print $q->header('text/javascript');
-    print <<EOD;
-if (!commenter_name) {
-  document.writeln('<div id="comment-captcha-block">');
-  document.writeln('<input type="hidden" name="captcha_md5" value="$captcha_md5" />');
-  document.writeln('<label for="comment-captcha">CAPTCHA&trade; Code:</label>');
-  document.writeln('<img src="$captcha_img" width="$captcha_img_width" height="$captcha_img_height" alt="CAPTCHA Image" />');
-  document.writeln('<input type="text" id="comment-captcha" name="captcha_code" value="" length="$captcha_length" maxlength="$captcha_length" />');
-  document.writeln('</div>');
-}
-EOD
+    print "if (!commenter_name) {\n";
+    print "\tdocument.writeln('$_');\n" foreach split(/\r?\n/, $tmpl);
+    print "}\n";
 }
 
 1;

@@ -16,7 +16,7 @@ use File::Basename;
 use Data::Dumper;
 use Authen::Captcha;
 use base 'MT::Plugin';
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 my $dirname = dirname(__FILE__);
 my $cgipath = MT::ConfigMgr->instance->CGIPath;
@@ -37,6 +37,7 @@ my $plugin = __PACKAGE__->new({
 	['captcha_length', { Default => 5 }],
 	['captcha_images_url', { Default => $cgipath . 'plugins/captcha/images/' }],
 	['captcha_images_path', { Default => File::Spec->catdir($dirname, 'images') }],
+	['captcha_tmpl', { Default => qq(<div id="comment-captcha-block">\n\t<input type="hidden" name="captcha_md5" value="[captcha_md5]" />\n\t<label for="comment-captcha">CAPTCHA&trade; Code:</label>\n\t<img src="[captcha_img]" width="[captcha_img_width]" height="[captcha_img_height]" alt="CAPTCHA Image" />\n\t<input type="text" id="comment-captcha" name="captcha_code" value="" length="[captcha_length]" maxlength="[captcha_length]" />\n</div>\n) }],
     ]),
 });
 MT->add_plugin($plugin);

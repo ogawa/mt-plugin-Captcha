@@ -34,3 +34,10 @@
     <input name="captcha_images_path" id ="captcha_images_path" size="40" value="<TMPL_VAR NAME=CAPTCHA_IMAGES_PATH ESCAPE=HTML>" />
   </div>
 </div>
+<div class="setting">
+  <div class="label"><label for="captcha_tmpl"><MT_TRANS phrase="Captcha Template:"></label></div>
+  <div class="field">
+    <p>I don't recommend modifying this template if you don't know how it works.</p>
+    <textarea name="captcha_tmpl" id="captcha_tmpl" cols="60" rows="6"><TMPL_VAR NAME=CAPTCHA_TMPL ESCAPE=HTML></textarea>
+  </div>
+</div>
