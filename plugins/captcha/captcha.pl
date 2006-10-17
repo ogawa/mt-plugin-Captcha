@@ -16,7 +16,7 @@ use File::Basename;
 use Data::Dumper;
 use Authen::Captcha;
 use base 'MT::Plugin';
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 
 my $dirname = dirname(__FILE__);
 my $cgipath = MT::ConfigMgr->instance->CGIPath;
@@ -59,15 +59,15 @@ sub captcha_test {
 	return 1 if $commenter;
     }
 
-    my $q = $app->{query};
-    my $code = $q->param('captcha_code') or return 0;
-    my $md5 = $q->param('captcha_md5') or return 0;
-
     # load config
     my $cfg = $plugin->get_config_hash('blog:' . $blog->id);
 
     # check if captcha-test disabled
     return 1 unless $cfg->{captcha_enable};
+
+    my $q = $app->{query};
+    my $code = $q->param('captcha_code') or return 0;
+    my $md5 = $q->param('captcha_md5') or return 0;
 
     # configure Auth::Captcha
     $captcha->output_folder($cfg->{captcha_images_path});
