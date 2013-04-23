@@ -33,12 +33,12 @@ Captcha Pluginは、CAPTCHAテストを生成・検証することで、アン�
 
 このプラグインは、Movable Type 3.2以降で動作します。また、以下のPerlモジュールが必要になります。
 
- * [http://search.cpan.org/dist/Authen-Captcha/]()
- * [http://search.cpan.org/dist/GD/]()
+ * [http://search.cpan.org/dist/Authen-Captcha/](http://search.cpan.org/dist/Authen-Captcha/)
+ * [http://search.cpan.org/dist/GD/](http://search.cpan.org/dist/GD/)
 
 Captcha Plugin 0.10以降では、brute force attackへの対策としてsecret keyによる簡易な認証機能をサポートしています。この機能を使うためには、下記のパッチをAuthen::Captchaに適用する必要があります。FreeBSDなどのportsではこのパッチは適用済みになっています。
 
- * [http://rt.cpan.org/Public/Bug/Display.html?id=7664]()
+ * [http://rt.cpan.org/Public/Bug/Display.html?id=7664](http://rt.cpan.org/Public/Bug/Display.html?id=7664)
 
 ## インストール方法
 
@@ -72,7 +72,7 @@ CAPTCHAテストを使うには、コメントフォームのあるすべての�
 
 ## License
 
-This code is released under the Artistic License. The terms of the Artistic License are described at [http://www.perl.com/language/misc/Artistic.html]().
+This code is released under the Artistic License. The terms of the Artistic License are described at [http://www.perl.com/language/misc/Artistic.html](http://www.perl.com/language/misc/Artistic.html).
 
 ## Author & Copyright
 

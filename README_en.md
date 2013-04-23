@@ -33,12 +33,12 @@ Unlike well-known SCode plugin, Captcha plugin generates different CAPTCHA tests
 
 This plugin is supported on Movable Type 3.2 or later and requires the following Perl modules:
 
- * [http://search.cpan.org/dist/Authen-Captcha/]()
- * [http://search.cpan.org/dist/GD/]()
+ * [http://search.cpan.org/dist/Authen-Captcha/](http://search.cpan.org/dist/Authen-Captcha/)
+ * [http://search.cpan.org/dist/GD/](http://search.cpan.org/dist/GD/)
 
 If you want to employ "secret key" feature, you must apply the following patch to Authen::Captcha.
 
- * [http://rt.cpan.org/Public/Bug/Display.html?id=7664]()
+ * [http://rt.cpan.org/Public/Bug/Display.html?id=7664](http://rt.cpan.org/Public/Bug/Display.html?id=7664)
 
 ## Installation
 
@@ -65,7 +65,7 @@ Each CAPTCHA tests has a time to live, and the default lifetime is 1 hour.  To c
 
 ## License
 
-This code is released under the Artistic License. The terms of the Artistic License are described at [http://www.perl.com/language/misc/Artistic.html]().
+This code is released under the Artistic License. The terms of the Artistic License are described at [http://www.perl.com/language/misc/Artistic.html](http://www.perl.com/language/misc/Artistic.html).
 
 ## Author & Copyright
 
